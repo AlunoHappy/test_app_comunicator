@@ -9,15 +9,36 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
+import { ChatProvider } from '../providers/chat/chat';
+import { UserServiceProvider } from '../providers/user-service/user-service';
+import { SignupPageModule } from '../pages/signup/signup.module';
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyAKONqUEypZzGOFWqT998-Gtpb1g-5tuxs",
+  authDomain: "comunicator-6589e.firebaseapp.com",
+  databaseURL: "https://comunicator-6589e.firebaseio.com",
+  projectId: "comunicator-6589e",
+  storageBucket: "comunicator-6589e.appspot.com",
+  messagingSenderId: "579880398180"
+};
+
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage
   ],
-  imports: [
+  imports: [ 
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig), 
+    AngularFireDatabaseModule, 
+    AngularFireAuthModule,
+    SignupPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -26,9 +47,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ListPage
   ],
   providers: [
+    ChatProvider,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    AngularFireDatabase, 
+    AngularFireAuth,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    UserServiceProvider
   ]
 })
 export class AppModule {}
