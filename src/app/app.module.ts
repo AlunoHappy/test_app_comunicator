@@ -15,6 +15,7 @@ import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { ChatProvider } from '../providers/chat/chat';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { SignupPageModule } from '../pages/signup/signup.module';
+import { LoginPageModule } from '../pages/login/login.module';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAKONqUEypZzGOFWqT998-Gtpb1g-5tuxs",
@@ -39,6 +40,7 @@ export const firebaseConfig = {
     AngularFireDatabaseModule, 
     AngularFireAuthModule,
     SignupPageModule
+    ,LoginPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

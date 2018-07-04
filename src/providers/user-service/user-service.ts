@@ -6,34 +6,65 @@ import { AngularFireAuth } from 'angularfire2/auth';
 /* 
 Generated class for the UserServiceProvider provider. 
 See https://angular.io/guide/dependency-injection for more info on providers and Angular DI. 
-*/ 
+*/
 
-@Injectable() 
+@Injectable()
 export class UserServiceProvider {
-  constructor( 
+  constructor(
     private db: AngularFireDatabase,
-    private afAuth: AngularFireAuth 
-  ) { 
+    private afAuth: AngularFireAuth
+  ) {
 
   }
 
-  createUser(credentials){ 
-    return new Promise<any>((resolve, reject) => { 
-      this.afAuth.auth.createUserAndRetrieveDataWithEmailAndPassword( 
-        credentials.email, 
-        credentials.password 
-      ).then(response => { 
-        localStorage.setItem("auth", JSON.stringify(response)); 
-        delete credentials.password; 
-        var userModel = { 
-          ...credentials, 
-          uid: response.user.uid 
-        } 
-        this.db.database.ref("users").push(userModel).then(user => { 
+  createUser(credentials) {
+    return new Promise<any>((resolve, reject) => {
+      this.afAuth.auth.createUserAndRetrieveDataWithEmailAndPassword(
+        credentials.email,
+        credentials.password
+      ).then(response => {
+        localStorage.setItem("auth", JSON.stringify(response));
+        delete credentials.password;
+        var userModel = {
+          ...credentials,
+          uid: response.user.uid
+        }
+        this.db.database.ref("users").push(userModel).then(user => {
           localStorage.setItem("user", JSON.stringify(userModel));
-        }); 
+        });
         resolve(userModel);
-       }).catch(err => err) 
-      })
-    }
+      }).catch(err => err)
+    })
   }
+  isLogedIn(): boolean {
+    var auth = localStorage.getItem("auth");
+    return auth != undefined && auth != null;
+  }
+  logout() {
+    localStorage.removeItem("user");
+    localStorage.removeItem("auth");
+    return this.afAuth.auth.signOut();
+  }
+  login(credentials) { 
+    return new Promise<any>((resolve, reject) => {
+      this.afAuth.auth.signInWithEmailAndPassword(
+        credentials.username,
+        credentials.password
+      ).then((auth) => {
+        localStorage.setItem("auth", JSON.stringify(auth));
+        var userFromDatabase = 
+        this.db.database.ref("users").orderByChild("uid").equalTo(auth.user.uid).on("child_added", function (user) {
+          var userVal = user.val(); 
+          localStorage.setItem("user", JSON.stringify(userVal)); 
+          resolve(userVal);
+        });
+      }).catch(err => {
+        reject(err); 
+     });
+    })
+  }
+  getUser(){
+    var user = localStorage.getItem("user");
+    return JSON.parse(user);
+  }
+}
