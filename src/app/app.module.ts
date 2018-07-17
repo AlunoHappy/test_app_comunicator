@@ -18,6 +18,7 @@ import { SignupPageModule } from '../pages/signup/signup.module';
 import { LoginPageModule } from '../pages/login/login.module';
 
 export const firebaseConfig = {
+<<<<<<< HEAD
     apiKey: "AIzaSyAKONqUEypZzGOFWqT998-Gtpb1g-5tuxs",
     authDomain: "comunicator-6589e.firebaseapp.com",
     databaseURL: "https://comunicator-6589e.firebaseio.com",
@@ -25,6 +26,15 @@ export const firebaseConfig = {
     storageBucket: "comunicator-6589e.appspot.com",
     messagingSenderId: "579880398180"
   };
+=======
+  apiKey: "AIzaSyAKONqUEypZzGOFWqT998-Gtpb1g-5tuxs",
+  authDomain: "comunicator-6589e.firebaseapp.com",
+  databaseURL: "https://comunicator-6589e.firebaseio.com",
+  projectId: "comunicator-6589e",
+  storageBucket: "comunicator-6589e.appspot.com",
+  messagingSenderId: "579880398180"
+};
+>>>>>>> 8ff91210385186c9886816ffe2c90f4f51fc9630
 
 
 @NgModule({
@@ -39,8 +49,13 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig), 
     AngularFireDatabaseModule, 
     AngularFireAuthModule,
+<<<<<<< HEAD
     SignupPageModule,
     LoginPageModule
+=======
+    SignupPageModule
+    ,LoginPageModule
+>>>>>>> 8ff91210385186c9886816ffe2c90f4f51fc9630
   ],
   bootstrap: [IonicApp],
   entryComponents: [

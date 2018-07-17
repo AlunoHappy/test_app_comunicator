@@ -33,7 +33,11 @@ export class SignupPage {
 
   signup() { 
     console.log(this.model) 
+<<<<<<< HEAD
      this.userService.createUser(this.model).then((_response) => { 
+=======
+     this.userService.createUser(this.model).then((response) => { 
+>>>>>>> 8ff91210385186c9886816ffe2c90f4f51fc9630
       this.navCtrl.setRoot(HomePage);
      }, (err) => { 
        console.log(err); 

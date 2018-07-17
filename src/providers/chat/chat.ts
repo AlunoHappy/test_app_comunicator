@@ -18,7 +18,11 @@ export class ChatProvider {
     console.log('Hello ChatProvider Provider');
 
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 8ff91210385186c9886816ffe2c90f4f51fc9630
   getMessages(callback){ 
     console.log("getting messages") 
     return this.db.database.ref("chat").on('value', (resp) => { 
